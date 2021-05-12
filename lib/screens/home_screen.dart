@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:syllabuspu/pages/syllabus/be_syllabus_main_page.dart';
 import 'package:syllabuspu/pages/third_sem_notes.dart';
-import 'package:syllabuspu/screens/third_sem_screen.dart';
+import 'package:syllabuspu/screens/login_screen.dart';
+import 'package:syllabuspu/widgets/home_page_body.dart';
 
 //HomePage Stateful Widget
 class HomeScreen extends StatefulWidget {
@@ -17,6 +20,8 @@ class _HomePageState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("PU Syllabus"),
@@ -25,11 +30,12 @@ class _HomePageState extends State<HomeScreen> {
           centerTitle: true,
           actions: [
             IconButton(
-              tooltip: 'Settings',
+              tooltip: 'Log Out',
               enableFeedback: true,
-              icon: Icon(CupertinoIcons.gear_alt_fill),
+              icon: Icon(Icons.logout),
               onPressed: (){
-
+                FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, LoginScreen.id);
               },
             ),
           ],
@@ -39,16 +45,16 @@ class _HomePageState extends State<HomeScreen> {
           child: ListView(
             children: <Widget>[
               UserAccountsDrawerHeader(
-                accountName: Text("KODE MAFIA"),
-                accountEmail: Text("Kodemafia008@gmail.com"),
+                accountName: Text(user!.displayName!),
+                accountEmail: Text(user.email!),
                 currentAccountPicture: CircleAvatar(
+                  backgroundImage: NetworkImage(user.photoURL!),
                   backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
-                  child: Text("K"),
                 ),
-                otherAccountsPictures:<Widget> [
+                  otherAccountsPictures:<Widget> [
                   CircleAvatar(
                     backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
-                    child: Text("M"),
+                   backgroundImage: NetworkImage(user.photoURL!),
                   ),
                 ],
               ),
@@ -57,8 +63,7 @@ class _HomePageState extends State<HomeScreen> {
                 title: Text("Syllabus"),
                 trailing: Icon(Icons.arrow_forward_rounded),
                 onTap: ()  {
-                  Navigator.of(context).pop();
-                  Navigator.pushReplacementNamed(context, ThirdSemScreen.id);
+                  Navigator.pushReplacementNamed(context, BESyllabusMainPage.id);
                 },
               ),
 
@@ -72,21 +77,24 @@ class _HomePageState extends State<HomeScreen> {
               ),
 
               Divider(),
+              ListTile(
+                  title: Text("Settings"),
+                  trailing: Icon(CupertinoIcons.gear_solid),
+                  onTap: (){
 
+                  }
+              ),
+
+              Divider(),
               ListTile(
                 title: Text("Close"),
                 trailing: Icon(Icons.close),
                 onTap: ()=> Navigator.of(context).pop(),
               ),
-
             ],
           ),
         ),
-        body: Row(
-          children: [
-
-          ],
-        )
+        body: HomePageBody(),
     );
   }
 }

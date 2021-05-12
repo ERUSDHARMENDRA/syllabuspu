@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1022881010228",
+    "project_id": "pu-syllabus-c12f8",
+    "storage_bucket": "pu-syllabus-c12f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022881010228:android:0c407b3e5962c24719b061",
+        "android_client_info": {
+          "package_name": "com.webdlabs.syllabuspu.syllabuspu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022881010228-p3vc6ngbpp1qoghd3d50eh6cd7g0ekit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.webdlabs.syllabuspu.syllabuspu",
+            "certificate_hash": "cf0eb13de24d9011ea0b094f4848948d53990584"
+          }
+        },
+        {
+          "client_id": "1022881010228-a72rc2ue0odb1d8jpqv040rgn6g39t87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMa9-V8fUdhp7Qo3Izp35XIzigsCLBYJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022881010228-a72rc2ue0odb1d8jpqv040rgn6g39t87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

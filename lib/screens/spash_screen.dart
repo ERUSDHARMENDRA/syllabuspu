@@ -1,33 +1,30 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:syllabuspu/screens/home_screen.dart';
+import 'package:syllabuspu/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const String id='splash-screen';
+  static const String id = 'splash-screen';
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     Timer(
         Duration(
-          seconds: 3,
-        ),(){
-    Navigator.pushReplacementNamed(context, HomeScreen.id);
-    }
-    );
-        super.initState();
+          seconds: 4,
+        ), () {
+      Navigator.pushReplacementNamed(context, LoginScreen.id);
+    });
+    super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff02354B),
       body: Center(
         child: Container(
           child: Column(
@@ -36,12 +33,19 @@ class _SplashScreenState extends State<SplashScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  borderRadius: BorderRadius.circular(20),
                   child: Image.asset('images/logo.png'),
                 ),
               ),
 
-              Text('Purwanchal University', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 30),),
+              Column(
+                children: [
+                  Text('Purwanchal University',style: TextStyle( color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 21),),
+                ],
+              ),
             ],
           ),
         ),
@@ -49,4 +53,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-

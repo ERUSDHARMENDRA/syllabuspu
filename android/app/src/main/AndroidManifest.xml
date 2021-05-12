@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.webdlabs.syllabuspu.syllabuspu">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="syllabuspu"
         android:icon="@mipmap/ic_launcher">
