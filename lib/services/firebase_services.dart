@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseServices {
   User? user = FirebaseAuth.instance.currentUser;
+
   CollectionReference syllabus =
-      FirebaseFirestore.instance.collection('pusyllabus');   
-      
+      FirebaseFirestore.instance.collection('pusyllabus');
+  CollectionReference banners =
+      FirebaseFirestore.instance.collection('banners');
 }
