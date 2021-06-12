@@ -9,11 +9,10 @@ import 'package:syllabuspu/services/firebase_services.dart';
 class PDFApi {
   FirebaseServices _services = FirebaseServices();
 
- Future<File?> loadFirebase(String url) async {
+  Future<File?> loadFirebase(String url) async {
     try {
       final refPDF = _services.syllabus.get();
       final bytes = await refPDF.getData();
-
       return _storeFile(url, bytes!);
     } catch (e) {
       return null;
