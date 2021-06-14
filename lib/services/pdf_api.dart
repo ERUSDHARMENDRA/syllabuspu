@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'dart:io';
-
 import 'package:syllabuspu/services/firebase_services.dart';
 
 class PDFApi {
@@ -12,8 +10,8 @@ class PDFApi {
   Future<File?> loadFirebase(String url) async {
     try {
       final refPDF = _services.syllabus.get();
-      final bytes = await refPDF.getData();
-      return _storeFile(url, bytes!);
+      // final bytes = await refPDF.getData();
+      // return _storeFile(url, bytes!);
     } catch (e) {
       return null;
     }

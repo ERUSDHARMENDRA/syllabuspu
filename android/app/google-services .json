@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1022881010228-p3vc6ngbpp1qoghd3d50eh6cd7g0ekit.apps.googleusercontent.com",
+          "client_id": "1022881010228-no6aub72d8u9lncphctobp5ved2hgcfn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.webdlabs.syllabuspu.syllabuspu",
-            "certificate_hash": "cf0eb13de24d9011ea0b094f4848948d53990584"
+            "certificate_hash": "a392d953e50cb0ef2ac37b0e1d86d93961838a64"
           }
         },
         {

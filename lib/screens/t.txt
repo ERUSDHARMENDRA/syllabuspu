@@ -1,0 +1,210 @@
+return Scaffold(
+      appBar: AppBar(
+        title: Text("Syllabus"),
+        elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            tooltip: 'Search',
+            enableFeedback: true,
+            icon: Icon(Icons.search),
+            onPressed: () {
+              //will implement later on
+            },
+          ),
+          IconButton(
+            tooltip: 'Log Out',
+            enableFeedback: true,
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.pushReplacementNamed(context, LoginScreen.id);
+            },
+          ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(user!.displayName!),
+              accountEmail: Text(user.email!),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(user.photoURL!),
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.deepPurple
+                        : Colors.white,
+              ),
+              otherAccountsPictures: <Widget>[
+                CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).platform == TargetPlatform.iOS
+                          ? Colors.deepPurple
+                          : Colors.white,
+                  backgroundImage: NetworkImage(user.photoURL!),
+                ),
+              ],
+            ),
+            ListTile(
+              title: Text("Syllabus"),
+              trailing: Icon(Icons.arrow_forward_rounded),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Text("Notes"),
+              trailing: Icon(Icons.arrow_forward_rounded),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider(),
+            ListTile(
+                title: Text("Settings"),
+                trailing: Icon(CupertinoIcons.gear_solid),
+                onTap: () {}),
+            Divider(),
+            ListTile(
+              title: Text("Close"),
+              trailing: Icon(Icons.close),
+              onTap: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+
+
+
+       body: HomePageBody(),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 0, //we will see this later
+        child: Container(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //left side of floating button
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 0;
+                        _currentScreen = HomeScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 0 ? Icons.home : Icons.home_outlined),
+                        Text(
+                          'HOME',
+                          style: TextStyle(
+                              color: _index == 0 ? color : Colors.black,
+                              fontWeight: _index == 0
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+//syllabus
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 1;
+                        _currentScreen = SyllabusScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 1
+                            ? CupertinoIcons.chat_bubble_fill
+                            : CupertinoIcons.chat_bubble),
+                        Text(
+                          'Syllabus',
+                          style: TextStyle(
+                              color: _index == 1 ? color : Colors.black,
+                              fontWeight: _index == 1
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              //right side of floating button
+              Row(
+                children: [
+                  //notes
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 2;
+                        _currentScreen = NotesScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 2
+                            ? CupertinoIcons.heart_fill
+                            : CupertinoIcons.heart),
+                        Text(
+                          'Notes',
+                          style: TextStyle(
+                              color: _index == 2 ? color : Colors.black,
+                              fontWeight: _index == 2
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //qbank
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 3;
+                        _currentScreen = QBankScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 3
+                            ? CupertinoIcons.person_fill
+                            : CupertinoIcons.person),
+                        Text(
+                          'Q-Bank',
+                          style: TextStyle(
+                              color: _index == 3 ? color : Colors.black,
+                              fontWeight: _index == 3
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),

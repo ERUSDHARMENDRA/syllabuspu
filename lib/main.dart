@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:syllabuspu/screens/notes_screen.dart';
+import 'package:syllabuspu/screens/qbank_screen.dart';
+import 'package:syllabuspu/screens/syllabus_screen.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
@@ -9,7 +12,6 @@ import 'package:flutter/material.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(MyApp());
 }
 
@@ -24,11 +26,14 @@ class MyApp extends StatelessWidget {
             primaryColor: defaultTargetPlatform == TargetPlatform.iOS
                 ? Color(0xff02354B)
                 : null),
-        initialRoute: SplashScreen.id,
+        initialRoute: HomeScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
-          HomeScreen.id: (context) => HomeScreen(),
+          HomeScreen.id: (context) =>HomeScreen(),
           LoginScreen.id: (context) => LoginScreen(),
+          QBankScreen.id: (context) => QBankScreen(),
+          SyllabusScreen.id: (context) => SyllabusScreen(),
+          NotesScreen.id: (context) => NotesScreen(),
         });
   }
 }
