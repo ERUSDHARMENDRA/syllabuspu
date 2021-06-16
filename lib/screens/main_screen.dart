@@ -216,6 +216,54 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
+      
+     drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text("KODE MAFIA"),
+              accountEmail: Text("Kodemafia008@gmail.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
+                child: Text("K"),
+              ),
+              otherAccountsPictures:<Widget> [
+                CircleAvatar(
+                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
+                  child: Text("M"),
+                ),
+              ],
+            ),
+
+            ListTile(
+              title: Text("Syllabus"),
+              trailing: Icon(Icons.arrow_forward_rounded),
+              onTap: ()  {
+                Navigator.of(context).pop();
+           
+              },
+            ),
+
+            ListTile(
+              title: Text("Notes"),
+              trailing: Icon(Icons.arrow_forward_rounded),
+              onTap: ()  {
+                Navigator.of(context).pop();
+          
+              },
+            ),
+
+            Divider(),
+
+            ListTile(
+              title: Text("Close"),
+              trailing: Icon(Icons.close),
+              onTap: ()=> Navigator.of(context).pop(),
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 }

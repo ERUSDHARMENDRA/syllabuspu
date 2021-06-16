@@ -18,6 +18,7 @@ Future main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+   
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Syllabus',
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         initialRoute: MainScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
-          MainScreen.id: (context) =>MainScreen(),
+          MainScreen.id: (context) => MainScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           QBankScreen.id: (context) => QBankScreen(),
           SyllabusScreen.id: (context) => SyllabusScreen(),
