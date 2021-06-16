@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:syllabuspu/screens/home_screen.dart';
+import 'package:syllabuspu/screens/main_screen.dart';
 import 'package:syllabuspu/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacementNamed(context, LoginScreen.id);
         } else {
           //if user has data on firestore..
-          Navigator.pushReplacementNamed(context, HomeScreen.id);
+          Navigator.pushReplacementNamed(context, MainScreen.id);
         }
       });
     });

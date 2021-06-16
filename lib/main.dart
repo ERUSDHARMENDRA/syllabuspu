@@ -4,7 +4,7 @@ import 'package:syllabuspu/screens/notes_screen.dart';
 import 'package:syllabuspu/screens/qbank_screen.dart';
 import 'package:syllabuspu/screens/syllabus_screen.dart';
 
-import 'screens/home_screen.dart';
+import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/spash_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             primaryColor: defaultTargetPlatform == TargetPlatform.iOS
-                ? Color(0xff02354B)
+                ? Color(0xFF0777A7)
                 : null),
-        initialRoute: HomeScreen.id,
+        initialRoute: MainScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
-          HomeScreen.id: (context) =>HomeScreen(),
+          MainScreen.id: (context) =>MainScreen(),
           LoginScreen.id: (context) => LoginScreen(),
           QBankScreen.id: (context) => QBankScreen(),
           SyllabusScreen.id: (context) => SyllabusScreen(),
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: HomeScreen(),
+      body: MainScreen(),
     );
   }
 }

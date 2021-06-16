@@ -1,0 +1,237 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:syllabuspu/services/firebase_services.dart';
+import 'notes_screen.dart';
+import 'qbank_screen.dart';
+import 'syllabus_screen.dart';
+
+FirebaseServices _services = FirebaseServices();
+
+class MainScreen extends StatefulWidget {
+  static const String id = 'home-screen';
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool _loading = false;
+  String imageUrl = '';
+  String title = '';
+  String subtitle = '';
+  Widget _currentScreen = MainScreen(); //this is the first screen to open
+  int _index = 0;
+
+  @override
+  void initState() {
+    try {
+      _services.banners.get().then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+          setState(() {
+            print(doc['imageUrl']);
+            imageUrl = doc['imageUrl'].toString();
+            title = doc['title'];
+            subtitle = doc['subtitle'];
+          });
+        });
+      });
+    } catch (e) {
+      print(e.toString());
+    }
+    if (ConnectionState == ConnectionState.waiting) {
+      _loading = true;
+    } else {
+      _loading = false;
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.logout_outlined),
+          ),
+        ],
+        title: Text(
+          'Syllabus',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: _loading==true
+            ? Center(
+              child: CircularProgressIndicator(
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                ),
+            )
+            : Container(
+              child: ListTile(
+                  title: Text(title),
+                  subtitle: Text(subtitle),
+                  trailing: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'View',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  leading: Image.network(imageUrl),
+                ),
+            ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple,
+        onPressed: () {
+          //this button is to make add products for seller
+          //so it will open first category screen to select the screen, where item belongs
+        },
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Icon(Icons.add),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 0, //we will see this later
+        child: Container(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //left side of floating button
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 0;
+                        _currentScreen = MainScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 0 ? Icons.home : Icons.home_outlined),
+                        Text(
+                          'HOME',
+                          style: TextStyle(
+                              color: _index == 0 ? color : Colors.black,
+                              fontWeight: _index == 0
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+//syllabus button
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 1;
+                        _currentScreen = SyllabusScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 1
+                            ? CupertinoIcons.book_circle_fill
+                            : CupertinoIcons.book_circle),
+                        Text(
+                          'SYLLABUS',
+                          style: TextStyle(
+                              color: _index == 1 ? color : Colors.black,
+                              fontWeight: _index == 1
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              //right side of floating button
+              Row(
+                children: [
+                  //my ads
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 2;
+                        _currentScreen = NotesScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 2
+                            ? CupertinoIcons.book_fill
+                            : CupertinoIcons.book),
+                        Text(
+                          'NOTES',
+                          style: TextStyle(
+                              color: _index == 2 ? color : Colors.black,
+                              fontWeight: _index == 2
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Q-bank
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        _index = 3;
+                        _currentScreen = QBankScreen();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(_index == 3
+                            ? CupertinoIcons.question
+                            : CupertinoIcons.person),
+                        Text(
+                          'Q-Bank',
+                          style: TextStyle(
+                              color: _index == 3 ? color : Colors.black,
+                              fontWeight: _index == 3
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

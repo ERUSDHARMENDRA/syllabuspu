@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:syllabuspu/provider/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:syllabuspu/screens/home_screen.dart';
+import 'package:syllabuspu/screens/main_screen.dart';
 import 'package:syllabuspu/widgets/sign_up.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if(provider.isSigningIn){
               return buildLoading();
             }else if(snapshot.hasData){
-                 return HomeScreen();
+                 return MainScreen();
             } else {
               return SignUpWidget();
                  }
