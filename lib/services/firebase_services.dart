@@ -9,5 +9,8 @@ class FirebaseServices {
       FirebaseFirestore.instance.collection('pusyllabus');
   CollectionReference banners =
       FirebaseFirestore.instance.collection('banners');
+        CollectionReference engingeeringnotes =
+      FirebaseFirestore.instance.collection('engingeeringnotes');
+
 
 }

@@ -19,8 +19,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   bool _loading = false;
   String imageUrl = '';
-  String title = '';
-  String subtitle = '';
   Widget _currentScreen = MainScreen(); //this is the first screen to open
   int _index = 0;
 
@@ -32,8 +30,6 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             print(doc['imageUrl']);
             imageUrl = doc['imageUrl'].toString();
-            title = doc['title'];
-            subtitle = doc['subtitle'];
           });
         });
       });
@@ -66,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: _loading==true
+        child: _loading==false
             ? Center(
               child: CircularProgressIndicator(
                   valueColor:
@@ -74,30 +70,18 @@ class _MainScreenState extends State<MainScreen> {
                 ),
             )
             : Container(
-              child: ListTile(
-                  title: Text(title),
-                  subtitle: Text(subtitle),
-                  trailing: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'View',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  leading: Image.network(imageUrl),
-                ),
+              child: Image.network(imageUrl),
             ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.green,
         onPressed: () {
           //this button is to make add products for seller
           //so it will open first category screen to select the screen, where item belongs
         },
         child: CircleAvatar(
           backgroundColor: Colors.white,
-          child: Icon(Icons.add),
+          child: Icon(Icons.support_agent_rounded),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -212,8 +196,8 @@ class _MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(_index == 3
-                            ? CupertinoIcons.question
-                            : CupertinoIcons.person),
+                            ? CupertinoIcons.question_square_fill
+                            : CupertinoIcons.question_square),
                         Text(
                           'Q-Bank',
                           style: TextStyle(
