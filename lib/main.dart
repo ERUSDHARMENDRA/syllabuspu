@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:syllabuspu/models/question.dart';
 import 'package:syllabuspu/screens/notes_screen.dart';
 import 'package:syllabuspu/screens/qbank_screen.dart';
 import 'package:syllabuspu/screens/syllabus_screen.dart';
-
+import 'screens/home_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/quiz_screen.dart';
+import 'screens/result_screen.dart';
 import 'screens/spash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +26,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Syllabus',
         theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.teal,
             primaryColor: defaultTargetPlatform == TargetPlatform.iOS
-                ? Color(0xFF0777A7)
+                ? Color(0xFF08A04C)
                 : null),
-        initialRoute: MainScreen.id,
+        initialRoute: HomeScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           MainScreen.id: (context) => MainScreen(),
@@ -35,6 +38,8 @@ class MyApp extends StatelessWidget {
           QBankScreen.id: (context) => QBankScreen(),
           SyllabusScreen.id: (context) => SyllabusScreen(),
           NotesScreen.id: (context) => NotesScreen(),
+          HomeScreen.id: (context) => HomeScreen(),
+         QuizScreen.id: (context) => QuizScreen(totalTime: 10,questions: question,),
         });
   }
 }
@@ -55,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: MainScreen(),
+      body: HomeScreen(),
     );
   }
 }

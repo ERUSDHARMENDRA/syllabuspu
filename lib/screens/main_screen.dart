@@ -10,7 +10,7 @@ import 'syllabus_screen.dart';
 FirebaseServices _services = FirebaseServices();
 
 class MainScreen extends StatefulWidget {
-  static const String id = 'home-screen';
+  static const String id = 'main-screen';
 
   @override
   _MainScreenState createState() => _MainScreenState();
