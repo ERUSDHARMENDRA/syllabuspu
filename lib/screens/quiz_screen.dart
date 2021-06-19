@@ -97,6 +97,7 @@ class _QuizScreenState extends State<QuizScreen> {
               currentQuestion.question,
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),
+            Spacer(),
             Expanded(
               child: ListView.builder(
                   itemCount: currentQuestion.answers.length,
@@ -113,7 +114,7 @@ class _QuizScreenState extends State<QuizScreen> {
                             _score++;
                           }
                           Future.delayed(Duration(milliseconds: 200), () {
-                            if (_currentIndex == question.length - 1) {
+                            if (_currentIndex == widget.questions.length - 1) {
                               pushResultScr(context);
                               return;
                             }
@@ -133,8 +134,13 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void pushResultScr(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => ResultScreen(totalQuestions: widget.questions.length,score: _score,)));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => ResultScreen(
+              totalQuestions: widget.questions.length,
+              totalTime: widget.totalTime,
+              score: _score,
+              questions: widget.questions,
+            )));
   }
 }
 

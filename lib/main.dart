@@ -1,18 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:syllabuspu/models/question.dart';
 import 'package:syllabuspu/screens/notes_screen.dart';
 import 'package:syllabuspu/screens/qbank_screen.dart';
 import 'package:syllabuspu/screens/syllabus_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
-import 'screens/quiz_screen.dart';
-import 'screens/result_screen.dart';
 import 'screens/spash_screen.dart';
 import 'package:flutter/material.dart';
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -39,7 +36,7 @@ class MyApp extends StatelessWidget {
           SyllabusScreen.id: (context) => SyllabusScreen(),
           NotesScreen.id: (context) => NotesScreen(),
           HomeScreen.id: (context) => HomeScreen(),
-         QuizScreen.id: (context) => QuizScreen(totalTime: 10,questions: question,),
+      
         });
   }
 }

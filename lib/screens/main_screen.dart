@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:syllabuspu/screens/quiz_screen.dart';
 import 'package:syllabuspu/services/firebase_services.dart';
 import 'notes_screen.dart';
 import 'qbank_screen.dart';
@@ -62,16 +63,16 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: _loading==false
+        child: _loading == false
             ? Center(
-              child: CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).primaryColor),
                 ),
-            )
+              )
             : Container(
-              child: Image.network(imageUrl),
-            ),
+                child: Image.network(imageUrl),
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green,
@@ -216,51 +217,56 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-      
-     drawer: Drawer(
+      drawer: Drawer(
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName: Text("KODE MAFIA"),
               accountEmail: Text("Kodemafia008@gmail.com"),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
+                backgroundColor:
+                    Theme.of(context).platform == TargetPlatform.iOS
+                        ? Colors.deepPurple
+                        : Colors.white,
                 child: Text("K"),
               ),
-              otherAccountsPictures:<Widget> [
+              otherAccountsPictures: <Widget>[
                 CircleAvatar(
-                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.deepPurple:Colors.white,
+                  backgroundColor:
+                      Theme.of(context).platform == TargetPlatform.iOS
+                          ? Colors.deepPurple
+                          : Colors.white,
                   child: Text("M"),
                 ),
               ],
             ),
-
             ListTile(
               title: Text("Syllabus"),
-              trailing: Icon(Icons.arrow_forward_rounded),
-              onTap: ()  {
+              trailing: Icon(Icons.book_online_outlined),
+              onTap: () {
                 Navigator.of(context).pop();
-           
               },
             ),
-
             ListTile(
               title: Text("Notes"),
               trailing: Icon(Icons.arrow_forward_rounded),
-              onTap: ()  {
+              onTap: () {
                 Navigator.of(context).pop();
-          
               },
             ),
-
+            ListTile(
+              title: Text("Quiz"),
+              trailing: Icon(Icons.question_answer_outlined),
+              onTap: () {
+              Navigator.of(context).pop();
+              },
+            ),
             Divider(),
-
             ListTile(
               title: Text("Close"),
               trailing: Icon(Icons.close),
-              onTap: ()=> Navigator.of(context).pop(),
+              onTap: () => Navigator.of(context).pop(),
             ),
-
           ],
         ),
       ),
