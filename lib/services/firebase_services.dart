@@ -13,7 +13,7 @@ class FirebaseServices {
   CollectionReference questions =
       FirebaseFirestore.instance.collection('questions');
   CollectionReference totalTime =
-      FirebaseFirestore.instance.collection('totalTime');
+      FirebaseFirestore.instance.collection('config');
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 }

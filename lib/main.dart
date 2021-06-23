@@ -18,7 +18,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Syllabus',
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
             primaryColor: defaultTargetPlatform == TargetPlatform.iOS
                 ? Color(0xFF08A04C)
                 : null),
-        initialRoute: HomeScreen.id,
+        initialRoute: MainScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           MainScreen.id: (context) => MainScreen(),
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
           SyllabusScreen.id: (context) => SyllabusScreen(),
           NotesScreen.id: (context) => NotesScreen(),
           HomeScreen.id: (context) => HomeScreen(),
-      
         });
   }
 }
