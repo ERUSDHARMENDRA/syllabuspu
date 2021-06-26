@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
             primaryColor: defaultTargetPlatform == TargetPlatform.iOS
                 ? Color(0xFF08A04C)
                 : null),
-        initialRoute: MainScreen.id,
+        initialRoute: SplashScreen.id,
         routes: {
           SplashScreen.id: (context) => SplashScreen(),
           MainScreen.id: (context) => MainScreen(),

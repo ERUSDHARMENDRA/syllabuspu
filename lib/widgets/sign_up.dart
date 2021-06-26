@@ -1,12 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:syllabuspu/services/auth_service.dart';
 import 'background_painter.dart';
 
-class SignUpWidget extends StatelessWidget {
+class SignUpWidget extends StatefulWidget {
+  @override
+  State<SignUpWidget> createState() => _SignUpWidgetState();
+}
 
+class _SignUpWidgetState extends State<SignUpWidget> {
+
+ 
   @override
   Widget build(BuildContext context) => Stack(
         fit: StackFit.expand,
@@ -25,7 +33,7 @@ class SignUpWidget extends StatelessWidget {
               width: 175,
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Welcome to PU Syllabus',
+                'Welcome to Syllabus App',
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
@@ -34,7 +42,9 @@ class SignUpWidget extends StatelessWidget {
             ),
           ),
           Spacer(),
-          SignInButton(Buttons.Google, onPressed: () {}),
+          SignInButton(Buttons.Google, onPressed: () {
+            AuthService.signInWithGoogle();
+          }),
           SizedBox(
             height: 12,
           ),

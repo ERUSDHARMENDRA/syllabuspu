@@ -3,9 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syllabuspu/components/action_button.dart';
 import 'package:syllabuspu/components/gradient_box.dart';
+import 'package:syllabuspu/components/rank_auth_button.dart';
 import 'package:syllabuspu/models/question.dart';
 import 'package:syllabuspu/screens/quiz_screen.dart';
 import 'package:syllabuspu/services/firebase_services.dart';
+
+import 'main_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home-screen';
@@ -20,6 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, MainScreen.id);
+          },
+        ),
+      ),
       body: SizedBox.expand(
         child: GradientBox(
           child: Flexible(
@@ -62,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         final totalTime = configDocs['key'];
                         return Column(
                           children: [
-                            actionButton(
+                            ActionButton(
                                 title: 'Start',
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -84,6 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       });
                     }),
+                    SizedBox(height:50),
+                    RankAuthButton(),
               ],
             ),
           ),

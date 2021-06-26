@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:syllabuspu/services/firebase_services.dart';
+import 'home_screen.dart';
+import 'login_screen.dart';
 import 'notes_screen.dart';
 import 'qbank_screen.dart';
 import 'syllabus_screen.dart';
@@ -21,9 +24,11 @@ class _MainScreenState extends State<MainScreen> {
   String imageUrl = '';
   Widget _currentScreen = MainScreen(); //this is the first screen to open
   int _index = 0;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
+       saveDataOnLogin();
     try {
       _services.banners.get().then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
@@ -41,8 +46,29 @@ class _MainScreenState extends State<MainScreen> {
     } else {
       _loading = false;
     }
+
     super.initState();
   }
+
+   Future<void> saveDataOnLogin() async {
+    final authUser = FirebaseAuth.instance.currentUser;
+    if (authUser == null) return;
+
+    final userRef =
+        FirebaseFirestore.instance.collection('signedusers').doc(authUser.uid);
+
+    final userDoc = await userRef.get();
+    if (userDoc.exists) {
+      final user = userDoc.data();
+    }
+    userRef.set({
+      'email': authUser.email,
+      'phone': authUser.phoneNumber,
+      'photoUrl': authUser.photoURL,
+      'displayName': authUser.displayName,
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +76,15 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.logout_outlined),
+          InkWell(
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushNamed(context, LoginScreen.id);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.logout_outlined),
+            ),
           ),
         ],
         title: Text(
@@ -220,14 +252,14 @@ class _MainScreenState extends State<MainScreen> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("KODE MAFIA"),
-              accountEmail: Text("Kodemafia008@gmail.com"),
+              accountName: Text(user!.displayName.toString()),
+              accountEmail: Text(user!.email.toString()),
               currentAccountPicture: CircleAvatar(
                 backgroundColor:
                     Theme.of(context).platform == TargetPlatform.iOS
                         ? Colors.deepPurple
                         : Colors.white,
-                child: Text("K"),
+                child: Image.network(user!.photoURL.toString()),
               ),
               otherAccountsPictures: <Widget>[
                 CircleAvatar(
@@ -235,7 +267,7 @@ class _MainScreenState extends State<MainScreen> {
                       Theme.of(context).platform == TargetPlatform.iOS
                           ? Colors.deepPurple
                           : Colors.white,
-                  child: Text("M"),
+                  child: Text("K-M"),
                 ),
               ],
             ),
@@ -257,7 +289,7 @@ class _MainScreenState extends State<MainScreen> {
               title: Text("Quiz"),
               trailing: Icon(Icons.question_answer_outlined),
               onTap: () {
-              Navigator.of(context).pop();
+                Navigator.pushNamed(context, HomeScreen.id);
               },
             ),
             Divider(),

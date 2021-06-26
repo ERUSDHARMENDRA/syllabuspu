@@ -57,7 +57,8 @@ class _QuizScreenState extends State<QuizScreen> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, HomeScreen.id);
         },
-      )),
+      ),
+      ),
       body: GradientBox(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
