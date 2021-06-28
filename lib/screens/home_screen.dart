@@ -22,6 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<QuizProvider>(context);
+//also above provider line can be written as 
+// final provider = context.watch<QuizProvider>();
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -40,61 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   'हाजिरी जवाफ',
                   style: TextStyle(fontSize: 40, color: Colors.white),
                 ),
+
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
-                StreamBuilder<QuerySnapshot>(
-                    stream: _services.questions.snapshots(),
-                    
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white),),
-                        );
-                      }
-                      final questionDocs = snapshot.data!.docs;
-                      final questions = questionDocs
-                          .map((e) => Question.fromQueryDocumentSnapshot(e))
-                          .toList();
-            
-                      return StreamBuilder<QuerySnapshot>(
-                        stream: _services.totalTime.snapshots(),
-                          builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          if(ConnectionState==ConnectionState.waiting){
-                            return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                          }
-                        }
-                        final configDocs = snapshot.data!.docs.first.data()
-                            as Map<String, dynamic>;
-                        final totalTime = configDocs['key'];
-                        return Column(
-                          children: [
-                            ActionButton(
+                if(provider.questions.isEmpty || provider.totalTime ==0)
+                 Center(
+                   child: CircularProgressIndicator()
+                 ),
+                else
+                               ActionButton(
                                 title: 'Start',
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => QuizScreen(
-                                          totalTime: totalTime,
-                                          questions: questions)));
+                                          totalTime: provider.totalTime,
+                                          questions: provider.questions)));
                                 }),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Text(
-                              'Total Questions: ${questions.length}',
+                              'Total Questions: ${provider.questions.length}',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20),
                             ),
-                          ],
-                        );
-                      });
-                    }),
-                    SizedBox(height:50),
+                            
+                    SizedBox(height:20),
                     RankAuthButton(),
               ],
             ),

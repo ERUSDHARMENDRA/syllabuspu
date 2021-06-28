@@ -31,38 +31,9 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
   @override
   void initState() {
-    _updateHighScore();
+  final provider = context.read<QuizProvider>();
+  provider.updateHighScore(widget.score);
     super.initState();
-  }
-
-Future<void> _updateHighScore() async {
-    final authUser = FirebaseAuth.instance.currentUser;
-    if (authUser == null) return;
-
-    final userRef =
-        FirebaseFirestore.instance.collection('quizusers').doc(authUser.uid);
-
-    final userDoc = await userRef.get();
-    if (userDoc.exists) {
-      final user = userDoc.data();
-      if (user == null) return;
-      final lastHighScore = user['score'];
-
-      if (lastHighScore >= widget.score) {
-        return;
-      }
-      userRef.update({
-        'score': widget.score,
-      });
-      return;
-    }
-    userRef.set({
-      'email': authUser.email,
-      'phone': authUser.phoneNumber,
-      'photoUrl': authUser.photoURL,
-      'displayName': authUser.displayName,
-      'score': widget.score,
-    });
   }
 
   @override
@@ -97,13 +68,17 @@ Future<void> _updateHighScore() async {
             SizedBox(
               height: 80,
             ),
-            widget.score == widget.questions.length
+            widget.score == provider.questions.length
                 ? Text('Excellent Performance',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold))
-                : Text(''),
+                : Text('Work Hard to get Better Position',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold)),
           ],
         )),
       ),

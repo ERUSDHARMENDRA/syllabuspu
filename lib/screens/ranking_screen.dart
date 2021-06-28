@@ -11,6 +11,7 @@ class RankingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<QuizProvider>();
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -35,35 +36,28 @@ class RankingScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
+              if(provider.users.isEmpty) 
+              Center(child:CircularProgressIndicator()),
+              else
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('quizusers')
-                      .orderBy('score', descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context, snapshot) {
-                    if (!snapshot.hasData)
-                      return Center(child: CircularProgressIndicator());
-                    final users = snapshot.data!.docs;
-                    return ListView.builder(
-                        itemCount: users.length,
+                child: ListView.builder(
+                        itemCount: provider.users.length,
                         itemBuilder: (context, index) {
+                          final user = provider.users[index];
                           return Card(
                             child: ListTile(
                               leading: CircleAvatar(
                                   child: Image.network(
-                                      users[index]['photoUrl'].toString())),
-                              title: Text(users[index]['displayName']),
+                                      user.photoUrl)),
+                              title: Text(user.name),
                               trailing: Text(
-                                users[index]['score'].toString(),
+                                user.score.toString(),
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                             ),
                           );
                         });
-                  },
-                ),
               ),
               ActionButton(
                   onTap: () {

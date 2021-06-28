@@ -12,7 +12,12 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create:(_)=>QuizProvider(),
+      child: MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
