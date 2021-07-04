@@ -7,7 +7,7 @@ class Question {
   final String question;
   final List<String> answers;
   final String correctAnswer;
-  
+
   Question({
     required this.id,
     required this.question,
@@ -48,9 +48,9 @@ class Question {
   }
 
   factory Question.fromQueryDocumentSnapshot(QueryDocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
+    final data = snapshot as Map<String, dynamic>;
     final id = snapshot.id;
-    data[id] = id;
+    data['id'] = id;
     return Question.fromMap(data);
   }
 

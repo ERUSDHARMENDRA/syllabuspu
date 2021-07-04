@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-       saveDataOnLogin();
+    saveDataOnLogin();
     try {
       _services.banners.get().then((QuerySnapshot querySnapshot) {
         querySnapshot.docs.forEach((doc) {
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
-   Future<void> saveDataOnLogin() async {
+  Future<void> saveDataOnLogin() async {
     final authUser = FirebaseAuth.instance.currentUser;
     if (authUser == null) return;
 
@@ -59,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
 
     final userDoc = await userRef.get();
     if (userDoc.exists) {
-      final user = userDoc.data();
+      final user = userDoc;
     }
     userRef.set({
       'email': authUser.email,
@@ -68,7 +68,6 @@ class _MainScreenState extends State<MainScreen> {
       'displayName': authUser.displayName,
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

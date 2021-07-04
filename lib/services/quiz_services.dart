@@ -1,32 +1,37 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:syllabuspu/models/question.dart';
+import 'package:syllabuspu/models/quiz_user.dart';
 
 class QuizService {
+  static Future<List<Question>> getAllQuestions() async {
+    final questionRef = FirebaseFirestore.instance.collection('questions');
+    final questionDoc = await questionRef.get();
 
-static Future<List<Question>> getAllQuestions() async {
-  final questionsRef = FirebaseFirestore.instance.collection('questions');
-  final questionDoc = await questionRef.get();
-  
-  return questionDoc.docs.map((e) => Question.fromQueryDocumentSnapshot(e))
-                          .toList();
-}
+    return questionDoc.docs
+        .map((e) => Question.fromQueryDocumentSnapshot(e))
+        .toList();
+  }
 
-static Future<int> getTotalTime() async {
-  final configRef = FirebaseFirestore.instance.collection('config');
-  final configDoc = await configRef.get();
+  static Future<int> getTotalTime() async {
+    final configRef = FirebaseFirestore.instance.collection('config');
+    final configDoc = await configRef.get();
 
-  final config = configDoc.docs.first.data();
-  return config['key'];
-}
+    final config = configDoc.docs.first;
+    return config['key'];
+  }
 
-static Future<List<QuizUser>> getAllUsers() async{
-  final usersRef = FirebaseFirestore.instance.collection('quizusers').orderBy('score', descending: true);
-  final usersDoc = await usersRef.get();
- return usersDoc.docs.map((e) => QuizUser.fromQueryDocumentSnapshot(e))
-       
-                          .toList();
-}
+  static Future<List<QuizUser>> getAllUsers() async {
+    final usersRef = FirebaseFirestore.instance
+        .collection('quizusers')
+        .orderBy('score', descending: true);
+    final usersDoc = await usersRef.get();
+    return usersDoc.docs
+        .map((e) => QuizUser.fromQueryDocumentSnapshot(e))
+        .toList();
+  }
 
-Future<void> _updateHighScore(int currentScore) async {
+  static Future<void> updateHighScore(int currentScore) async {
     final authUser = FirebaseAuth.instance.currentUser;
     if (authUser == null) return;
 
@@ -35,7 +40,7 @@ Future<void> _updateHighScore(int currentScore) async {
 
     final userDoc = await userRef.get();
     if (userDoc.exists) {
-      final user = userDoc.data();
+      final user = userDoc;
       if (user == null) return;
       final lastHighScore = user['score'];
 
@@ -43,7 +48,7 @@ Future<void> _updateHighScore(int currentScore) async {
         return;
       }
       userRef.update({
-        'score':currentScore,
+        'score': currentScore,
       });
       return;
     }

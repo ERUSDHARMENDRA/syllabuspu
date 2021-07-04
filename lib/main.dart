@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import 'package:syllabuspu/screens/notes_screen.dart';
 import 'package:syllabuspu/screens/qbank_screen.dart';
 import 'package:syllabuspu/screens/syllabus_screen.dart';
+import 'provider/quiz_provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
@@ -16,7 +18,7 @@ void main() async {
     ChangeNotifierProvider(
       create:(_)=>QuizProvider(),
       child: MyApp(),
-      )
+      ),
   );
 }
 

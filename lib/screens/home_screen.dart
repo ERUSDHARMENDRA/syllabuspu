@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syllabuspu/components/action_button.dart';
 import 'package:syllabuspu/components/gradient_box.dart';
 import 'package:syllabuspu/components/rank_auth_button.dart';
-import 'package:syllabuspu/models/question.dart';
+import 'package:syllabuspu/provider/quiz_provider.dart';
 import 'package:syllabuspu/screens/quiz_screen.dart';
-import 'package:syllabuspu/services/firebase_services.dart';
 
 import 'main_screen.dart';
 
@@ -18,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  FirebaseServices _services = FirebaseServices();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                  Center(
                    child: CircularProgressIndicator()
                  ),
-                else
                                ActionButton(
                                 title: 'Start',
                                 onTap: () {
